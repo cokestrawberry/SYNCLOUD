@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../styles/share.css">
+        <link rel="stylesheet" href="../styles/search.css">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Oleo+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet"/>
+        <title>SYNCLOUD</title>
+        <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+        <script>
+            function popup(){
+                var url = "http://127.0.0.1:5500/front/codes/upload.html";
+                var name = "Upload";
+                var option = "width = 500, height = 700, top = 100, left = 200, location = no"
+                window.open(url, name, option);
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <div id="page_logo">
+                <a href="../codes/index.html">SYNCLOUD</a>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="../codes/index.html">Workspace</a>
+                    </li>
+                    <li>
+                        <a href = "javascript:popup()">Upload</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="searching_area">
+                <form>
+                <!-- 검색창 만들기 -->
+                    <div class="search">
+                        <input type="text" name="query" value="">
+                        <button type="submit" class="search">Search</button>
+                    </div>
+                </form>
+            </section>
+            <section id="card">
+                <ul>
+                    <li>
+                        <form id="card_contents">
+                        <!-- 트랙 띄우는 곳으로 사용 -->
+                            <p class="song_name">Song name</p>
+                            <p class="singer_name">Singer name</p>
+                            <p class="instruments">Session</p>
+                            <div>
+                                <button type="button" class="addToList">Add</button>
+                            </div>
+                        </form>
+                    </li>
+                    <li>
+                        <form id="card_contents">
+                            <!-- 트랙 띄우는 곳으로 사용 -->
+                            <p class="song_name">Song name</p>
+                            <p class="singer_name">Singer name</p>
+                            <p class="instruments">Session</p>
+                            <div>
+                                <button type="button" class="addToList">Add</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </section>
+        </main>
+        <footer>
+            <!-- 팀 정보 같은거 넣으면 될듯 -->
+            Chungang UNIV. CSE Capstone Design - Team 2
+        </footer>
+    </body>
+</html>
