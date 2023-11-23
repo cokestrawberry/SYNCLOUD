@@ -1,7 +1,7 @@
 #searching_area {
   margin: 10px;
   padding: 5px;
-  height: fit-content;
+  height: 130px;
 }
 
 form {
@@ -45,6 +45,26 @@ form {
   border-radius: 10px;
   color: rgb(230, 230, 230);
   cursor: pointer;
+}
+
+.session_select {
+  height: fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+.session_select button {
+  background: linear-gradient(90deg,rgb(235, 235, 235),rgb(255,255,255));
+  color: rgb(15, 15, 15);
+  border: none;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  height: 40px;
+  width: 120px;
 }
 
 #card {

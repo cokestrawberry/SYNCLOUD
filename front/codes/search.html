@@ -15,6 +15,14 @@
                 window.open(url, name, option);
             }
         </script>
+        <script>
+            function note(){
+                let url = "http://127.0.0.1:5500/front/codes/note.html";
+                let name = "note";
+                let option = "width = 400, height = 450, top = 100, left = 200, location = no"
+                window.open(url, name, option);
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -40,6 +48,14 @@
                         <input type="text" name="query" value="">
                         <button type="submit" class="search">Search</button>
                     </div>
+                    <div class="session_select">
+                        <button type="submit">Vocal</button>
+                        <button type="submit">Guitar</button>
+                        <button type="submit">Bass</button>
+                        <button type="submit">Drum</button>
+                        <button type="submit">Keyboard</button>
+                        <button type="submit">Etc.</button>
+                    </div>
                 </form>
             </section>
             <section id="card">
@@ -51,6 +67,7 @@
                             <p class="singer_name">Singer name</p>
                             <p class="instruments">Session</p>
                             <div>
+                                <button type="button" class="note" onclick="javascript:note()">Note</button>
                                 <button type="button" class="addToList">Add</button>
                             </div>
                         </form>
@@ -62,6 +79,7 @@
                             <p class="singer_name">Singer name</p>
                             <p class="instruments">Session</p>
                             <div>
+                                <button type="button" class="note" onclick="javascript:note()">Note</button>
                                 <button type="button" class="addToList">Add</button>
                             </div>
                         </form>

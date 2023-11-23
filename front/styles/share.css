@@ -74,7 +74,7 @@ section {
   justify-content: center;
 }
 
-#card ul{
+#card table{
   display: grid;
   align-content: center;
   width: 80%;
@@ -82,7 +82,7 @@ section {
   padding: 0 0 0 0;
 }
 
-#card li {
+#card form {
   display: flex;
   max-width: 1200px;
   width: 80%;
