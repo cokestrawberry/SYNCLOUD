@@ -24,7 +24,6 @@ public class Soundtrack {
     @JoinColumn(name = "song_id")
     private Song song;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private SessionState session;
 

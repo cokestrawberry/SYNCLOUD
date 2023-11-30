@@ -35,13 +35,13 @@ public class SongRepository {
                 .getResultList();
     }
 
-    public Optional<Song> findByTitleAndArtist(String title, String artist) {
+    public List<Song> findByTitleAndArtist(String title, String artist) {
         List<Song> songs = em.createQuery("select S from Song as S where S.title = :title and S.artist = :artist", Song.class)
                 .setParameter("title", title)
                 .setParameter("artist", artist)
                 .getResultList();
 
-        return songs.stream().findAny();
+        return songs;
     }
 
 }

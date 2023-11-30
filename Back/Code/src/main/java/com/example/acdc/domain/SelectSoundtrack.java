@@ -37,7 +37,11 @@ public class SelectSoundtrack {
     }
 
     public void delete() {
-        this.deleted = true;
+        if (this.deleted) {
+            this.deleted = false;
+        } else {
+            this.deleted = true;
+        }
     }
 
 }

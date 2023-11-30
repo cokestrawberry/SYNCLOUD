@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/share.css">
+        <link rel="stylesheet" href="/css/upload.css">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Oleo+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet"/>
+        <title>SYNCLOUD</title>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    </head>
+
+    <body>
+        <h1>Upload Soundtrack</h1>
+        <form id="song_meta" th:action="@{'/upload/' + ${userId}}" th:object="${form}" method="post">
+            <section id="song_meta_data">
+                <ul>
+                    <li>
+                        <div class="meta_list" id="song_name_input">
+                            <label for="Song_name">Song Name</label>
+                            <input type="text" th:field="*{title}" name="song_name" placeholder="Song name">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta_list" id="singer_name_input">
+                            <label for="singer_name">Artist Name</label>
+                            <input type="text" th:field="*{artist} "name="singer_name" placeholder="Singer name">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta_list" id="session_input">
+                            <label for="session">Session</label>
+                            <select id="instrument" name="instrument" th:field="*{session}">
+                                <option value="GUITAR">Guitar</option>
+                                <option value="BASS">Bass</option>
+                                <option value="DRUM">Drum</option>
+                                <option value="KEYBOARD">Keyboard</option>
+                                <option value="ETC">Etc.</option>
+                            </select>
+                            <input type="hidden" value="" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta_list" id="bpm_input">
+                            <label for="bpm">BPM</label>
+                            <input type="number" name="bpm" min="0" value="80" size="5" th:field="*{bpm}">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta_list" id="note_input">
+                            <label for="note">Note</label>
+                            <textarea name="note" spellcheck="true" placeholder=" Session(Etc.) & Additional Information" th:field="*{note}"></textarea>
+                        </div>
+                    </li>
+                </ul>
+                <button type="submit">Upload</button>
+                <!--<input id="total_submit" name="total_submit" type="submit" value="Upload">-->
+            </section>
+        </form>
+    </body>
+</html>

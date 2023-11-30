@@ -31,7 +31,8 @@ public class Download {
         selectSoundtrack.setDownload(this);
     }
 
-    public void deleteSoundTrack(SelectSoundtrack selectSoundtrack) {
-        selectSoundtracks.remove(selectSoundtrack);
+    public void updateModifyDate() {
+        this.lastModifyDate = LocalDateTime.now();
     }
+
 }

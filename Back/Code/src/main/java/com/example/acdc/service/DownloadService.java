@@ -19,10 +19,11 @@ import java.util.List;
 public class DownloadService {
 
     private final DownloadRepository downloadRepository;
+    private final SelectSoundtrackRepository selectSoundtrackRepository;
 
     @Transactional
     public void save(Download download) {
-        download.setLastModifyDate(LocalDateTime.now());
+        download.updateModifyDate();
         downloadRepository.save(download);
     }
 
@@ -35,7 +36,33 @@ public class DownloadService {
     }
 
     public Download getClosedOne(User user) {
-        return downloadRepository.findAllByUser(user).get(0);
+
+        List<Download> downmoadList = downloadRepository.findAllByUser(user);
+        if(downmoadList == null) {
+            return null;
+        } else {
+            return downmoadList.get(0);
+        }
+    }
+
+    @Transactional
+    public int addSelectSoundtrack(Download download, SelectSoundtrack selectSoundtrack) {
+        List<SelectSoundtrack> selectSoundtracks = selectSoundtrackRepository.findByDownload(download);
+        for(int i = 0; i < selectSoundtracks.size(); i++) {
+            if(selectSoundtracks.get(i).getSoundtrack().getId() == selectSoundtrack.getSoundtrack().getId()) { //ok
+                if(!selectSoundtracks.get(i).getDeleted()) { //ok
+                    return 3;
+                }
+                else if (selectSoundtracks.get(i).getDeleted()) { //x
+                    selectSoundtracks.get(i).delete();
+                    selectSoundtrackRepository.save(selectSoundtracks.get(i));
+                    downloadRepository.save(download);
+                    return 2;
+                }
+            }
+        }
+        download.addSoundtrack(selectSoundtrack); //ok
+        return 1;
     }
 
 }

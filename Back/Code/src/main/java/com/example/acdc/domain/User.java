@@ -26,7 +26,9 @@ public class User {
 
     public static User createUser(String name) {
         User user = new User();
+        Download download = new Download();
         user.setName(name);
+        user.addDownload(download);
         return user;
     }
 

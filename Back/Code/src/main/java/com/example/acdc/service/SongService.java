@@ -40,13 +40,16 @@ public class SongService {
     }
 
     public Song findByTitleAndArtist(String title, String artist) {
-        Song findsong = songRepository.findByTitleAndArtist(title, artist).orElseThrow(() -> new NoSuchElementException("Song not found"));
-        return findsong;
+        List<Song> songs = songRepository.findByTitleAndArtist(title, artist);
+        if(songs.isEmpty()) {
+            return null;
+        }
+        return songs.get(0);
     }
 
     private void validateDuplicateSong(Song song) {
-        Optional<Song> findSong = songRepository.findByTitleAndArtist(song.getTitle(), song.getArtist());
-        if (findSong.isPresent()) {
+        List<Song> findSong = songRepository.findByTitleAndArtist(song.getTitle(), song.getArtist());
+        if (findSong.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 곡입니다.");
         }
     }

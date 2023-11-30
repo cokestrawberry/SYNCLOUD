@@ -21,10 +21,6 @@ public class UserService {
     @Transactional
     public Long save(User user) {
         userRepository.save(user);
-        List<Download> downloadList = downloadRepository.findAllByUser(user);
-        if (!downloadList.isEmpty()) {
-            downloadRepository.save(downloadList.get(0));
-        }
 
         return user.getId();
         //나중에 id, password 이런거로 회원가입/로그인 구현하면... 중복회원확인 과정 추가할 필요가 있다.

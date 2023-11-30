@@ -1,5 +1,6 @@
 package com.example.acdc.service;
 
+import com.example.acdc.domain.Download;
 import com.example.acdc.domain.SelectSoundtrack;
 import com.example.acdc.repository.SelectSoundtrackRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 public class SelectSoundtrackService {
 
     private final SelectSoundtrackRepository selectSoundtrackRepository;
+    private final DownloadService downloadService;
 
     @Transactional
     public Long save(SelectSoundtrack selectSoundtrack) {
@@ -26,8 +28,8 @@ public class SelectSoundtrackService {
         return selectSoundtrackRepository.findOne(id);
     }
 
-    public List<SelectSoundtrack> findByDownloadId(Long downloadId) {
-        return selectSoundtrackRepository.findByDownloadId(downloadId);
+    public List<SelectSoundtrack> findByDownload(Download download) {
+        return selectSoundtrackRepository.findByDownload(download);
     }
 
     @Transactional
