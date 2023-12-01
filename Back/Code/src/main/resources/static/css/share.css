@@ -74,12 +74,9 @@ section {
   justify-content: center;
 }
 
-#card table{
-  display: grid;
-  align-content: center;
-  width: 80%;
-  margin: 0 auto 0 auto;
-  padding: 0 0 0 0;
+#card ul {
+  list-style: none;
+  padding: 0;
 }
 
 #card form {
@@ -90,6 +87,7 @@ section {
   padding: 5px;
 }
 
+
 #card_contents {
   width: 80%;
   height: 150px;
@@ -99,8 +97,7 @@ section {
   text-align: center;
   padding: 10px 0 10px 0;
   margin: 3px auto 3px auto;
-  display: grid;
-  
+  display:grid;
 }
 
 #card_contents p:nth-of-type(1) {

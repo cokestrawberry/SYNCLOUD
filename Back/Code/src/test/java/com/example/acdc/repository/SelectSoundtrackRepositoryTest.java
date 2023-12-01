@@ -83,7 +83,7 @@ class SelectSoundtrackRepositoryTest {
         selectSoundtrackRepository.save(selectSoundtrack);
 
         Long downloadId = download.getId();
-        assertEquals(selectSoundtrack, selectSoundtrackRepository.findByDownloadId(downloadId).get(0));
+        assertEquals(selectSoundtrack, selectSoundtrackRepository.findByDownload(download).get(0));
     }
 
 //    @Test

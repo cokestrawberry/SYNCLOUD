@@ -47,26 +47,40 @@ form {
   cursor: pointer;
 }
 
+div {
+  margin: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
 .session_select {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-weight: 600;
   height: fit-content;
   width: fit-content;
   margin: auto;
+  display: flex;
+  flex-direction: row;
+  padding-right: 100px;
 }
 
-.session_select button {
-  background: linear-gradient(90deg,rgb(235, 235, 235),rgb(255,255,255));
-  color: rgb(15, 15, 15);
-  border: none;
-  border-radius: 3px;
-  margin-top: 20px;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
-  height: 40px;
-  width: 120px;
+.session_select input {
+  position: relative;
+  bottom: 3px;
+  right: 4px;
+}
+
+#head_label {
+  margin: 3px;
+  padding-right: 20px;
 }
 
 #card {
   top:250px;
+}
+
+#card ul {
+  list-style: none;
+  padding: 0;
 }

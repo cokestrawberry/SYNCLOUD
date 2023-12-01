@@ -31,7 +31,7 @@ public class SearchController {
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("soundtracks", soundtracks);
 
-        return "search";
+        return "search_alternative";
     }
 
     @PostMapping(value = "/search/{userId}")
@@ -45,40 +45,54 @@ public class SearchController {
             List<Soundtrack> tracks = soundtrackService.findBySong(songList.get(i));
             if(searchForm.searchOption != null) {
                 switch (searchForm.searchOption) {
+                    //  이후에 다중 선택으로 한다면... if문으로 바꿔서 걸리는 거마다 추가하는 거로...
                     case "VOCAL":
                         tracks = tracks.stream()
                                 .filter(s -> s.getSession().equals(SessionState.VOCAL))
                                 .collect(Collectors.toList());
+                        soundtrackList.addAll(tracks);
+                        break;
                     case "GUITAR":
                         tracks = tracks.stream()
                                 .filter(s -> s.getSession().equals(SessionState.GUITAR))
                                 .collect(Collectors.toList());
+                        soundtrackList.addAll(tracks);
+                        break;
                     case "BASS":
                         tracks = tracks.stream()
                                 .filter(s -> s.getSession().equals(SessionState.BASS))
                                 .collect(Collectors.toList());
+                        soundtrackList.addAll(tracks);
+                        break;
                     case "KEYBOARD":
                         tracks = tracks.stream()
                                 .filter(s -> s.getSession().equals(SessionState.KEYBOARD))
                                 .collect(Collectors.toList());
+                        soundtrackList.addAll(tracks);
+                        break;
                     case "DRUM":
                         tracks = tracks.stream()
                                 .filter(s -> s.getSession().equals(SessionState.DRUM))
                                 .collect(Collectors.toList());
+                        soundtrackList.addAll(tracks);
+                        break;
                     case "ETC":
                         tracks = tracks.stream()
                                 .filter(s -> s.getSession().equals(SessionState.ETC))
                                 .collect(Collectors.toList());
-                    default:
-
+                        soundtrackList.addAll(tracks);
+                        break;
+                    case "ALL":
+                        soundtrackList.addAll(tracks);
+                        //지금은 오류인데, 나중에는 그냥 다 추가하는 거로 수ㄷ
                 }
+            } else {
+                throw new IllegalStateException("Tlqkf");
             }
-            soundtrackList.addAll(tracks);
         }
-
         model.addAttribute("soundtracks", soundtrackList);
 
-        return "search";
+        return "search_alternative";
     }
 
     @PostMapping(value = "/search/{userId}/{soundtrackId}/add")
@@ -105,7 +119,7 @@ public class SearchController {
         downloadService.save(download);
         userService.save(user);
 
-        return "redirect:/search/"+userId;
+        return "redirect:/search_alternative/"+userId;
     }
 
 

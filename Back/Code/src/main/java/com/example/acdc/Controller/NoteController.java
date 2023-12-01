@@ -1,7 +1,6 @@
 package com.example.acdc.Controller;
 
 import com.example.acdc.service.SoundtrackService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

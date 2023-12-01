@@ -42,20 +42,38 @@
         </header>
         <main>
             <section id="searching_area">
-                <form th:action="@{'/search/'+${userId}}" th:object="${searchForm}" method="post">
-                    <!-- 검색창 만들기 -->
+                <form>
+                <!-- 검색창 만들기 -->
                     <div class="search">
-                        <input type="text" name="query" value="" th:field="*{searchTarget}">
-                        <button type="summit">Search</button>
+                        <input type="text" name="query" value="">
+                        <button type="submit" class="search">Search</button>
                     </div>
-                    <div class="session_select"> <!-- 버튼 동작 구현 진행중 -->
-                        <input type="radio" value="ALL" th:field="*{searchOption}">ALL
-                        <input type="radio" value="VOCAL" th:field="*{searchOption}">Vocal
-                        <input type="radio" value="GUITAR" th:field="*{searchOption}">Guitar
-                        <input type="radio" value="BASS" th:field="*{searchOption}">Bass
-                        <input type="radio" value="DRUM" th:field="*{searchOption}">Drum
-                        <input type="radio" value="KEYBOARD" th:field="*{searchOption}">Keyboard
-                        <input type="radio" value="ETC" th:field="*{searchOption}">ETC.
+                    <div class="session_select">
+                      <label id="head_label">Options : </label>
+                      <div>
+                        <label for="vocal">Vocal</label>
+                        <input type="checkbox" class="session_srch_opt" id="vocal" value="VOCAL" checked />
+                      </div>
+                      <div>
+                        <label for="guitar">Guitar</label>
+                        <input type="checkbox" class="session_srch_opt" id="guitar" value="GUITAR" checked />
+                      </div>
+                      <div>
+                        <label for="bass">Bass</label>
+                        <input type="checkbox" class="session_srch_opt" id="bass" value="BASS" checked />
+                      </div>
+                      <div>
+                        <label for="drum">Drum</label>
+                        <input type="checkbox" class="session_srch_opt" id="drum" value="DRUM" checked />
+                      </div>
+                      <div>
+                        <label for="keyboard">Keyboard</label>
+                        <input type="checkbox" class="session_srch_opt" id="keyboard" value="KEYBOARD" checked />
+                      </div>
+                      <div>
+                        <label for="etc">Etc.</label>
+                        <input type="checkbox" class="session_srch_opt" id="etc" value="ETC" checked />
+                      </div>
                     </div>
                 </form>
             </section>
