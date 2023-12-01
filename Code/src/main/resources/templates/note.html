@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/share.css">
+        <link rel="stylesheet" href="/css/note.css">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Oleo+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet"/>
+        <title>SYNCLOUD</title>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    </head>
+
+    <body>
+      <form> <!-- form으로 선언해야되는지는 불확실한데 어쨋든 db에서 받아와야 되니까 혹시 몰라서 form으로 만듦. 필요 없을 시 변경-->
+        <h1>Note</h1>
+        <div id="bpm_div">
+          <label id="bpm" for="bpm">BPM : </label>
+          <p th:text="${bpm}">80</p>
+        </div>
+         <!-- 여기에 db에서 bpm 불러와서 띄워주면 됨-->
+        <div>
+          <label id="note" for="note">Note</label>
+          <!-- 아래 textarea에 db에서 note 불러와서 띄워주면 됨-->
+          <textarea name="note" readonly="true" spellcheck="true" th:field="*{note}"></textarea>
+        </div>
+      </form>
+    </body>
+    <footer>
+      <!-- 팀 정보 같은거 넣으면 될듯 -->
+      Chungang UNIV. CSE Capstone Design - Team 2
+  </footer>
+</html>
