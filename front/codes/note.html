@@ -13,7 +13,11 @@
     <body>
       <form> <!-- form으로 선언해야되는지는 불확실한데 어쨋든 db에서 받아와야 되니까 혹시 몰라서 form으로 만듦. 필요 없을 시 변경-->
         <h1>Note</h1>
-        <p><label id="bpm" for="bpm">BPM : </label> 80</p> <!-- 여기에 db에서 bpm 불러와서 띄워주면 됨-->
+        <div id="bpm_div">
+          <label id="bpm" for="bpm">BPM : </label>
+          <p>80</p>
+        </div>
+         <!-- 여기에 db에서 bpm 불러와서 띄워주면 됨-->
         <div>
           <label id="note" for="note">Note</label>
           <!-- 아래 textarea에 db에서 note 불러와서 띄워주면 됨-->
