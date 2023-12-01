@@ -1,8 +1,17 @@
 # Capstone_Design
 Repository for Capstone Design
 
-First of all, It divided into 2 parts, front / back.
+* Backend
 
-1) front is divided into 3 part, codes(html) / style(css) / scripts(JavaScript)
+[ 작성 환경 MacOS ventura 13.5.1 , Spring 3.1.3 ver, IntelliJ IDEA ]
 
-2) back is for DataBase. It has its own README file, so please check that.
+DATABASE : Mysql Database ( Mysql workbench 사용 권장 ~ )
+application.yml 파일의 spring:datasource에서 url, username, password 변경하면 local에서 돌려볼 수 있다.
+
+HTML file:
+resource/template/ 폴더에 html 파일을,  
+resource/static/css에 css파일,
+js에 javascript 파일,
+images에 favicon 파일을 넣고,
+controller에서 url에 따라서 html파일 이름을 반환하면 동작을 구현할 수 있다.
+(still on working)
