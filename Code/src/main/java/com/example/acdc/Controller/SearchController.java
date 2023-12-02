@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -23,6 +25,20 @@ public class SearchController {
     private final SongService songService;
     private final SelectSoundtrackService selectSoundtrackService;
 
+    @ModelAttribute("sessions")
+    public Map<String, String> sessionModel(Model model) {
+        Map<String, String> sessions = new LinkedHashMap<>();
+        sessions.put("VOCAL", "Vocal");
+        sessions.put("GUITAR", "Guitar");
+        sessions.put("BASS", "Bass");
+        sessions.put("DRUM", "Drum");
+        sessions.put("KEYBOARD", "Keyboard");
+        sessions.put("ETC", "Etc.");
+        model.addAttribute("sessions", sessions);
+
+        return sessions;
+    }
+
     @GetMapping(value = "/search/{userId}")
     public String search(@PathVariable("userId") Long userId, Model model) {
 
@@ -30,6 +46,8 @@ public class SearchController {
 
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("soundtracks", soundtracks);
+
+        sessionModel(model);
 
         return "search_alternative";
     }
@@ -44,7 +62,50 @@ public class SearchController {
         for(int i = 0; i < songList.size(); i++){
             List<Soundtrack> tracks = soundtrackService.findBySong(songList.get(i));
             if(searchForm.searchOption != null) {
-                switch (searchForm.searchOption) {
+                if(searchForm.searchOption.contains("VOCAL")) {
+                    soundtrackList.addAll(
+                            tracks.stream()
+                                    .filter(s -> s.getSession().equals(SessionState.VOCAL))
+                                    .collect(Collectors.toList())
+                    );
+                }
+                if(searchForm.searchOption.contains("GUITAR")) {
+                    soundtrackList.addAll(
+                            tracks.stream()
+                                    .filter(s -> s.getSession().equals(SessionState.GUITAR))
+                                    .collect(Collectors.toList())
+                    );
+                }
+                if(searchForm.searchOption.contains("BASS")) {
+                    soundtrackList.addAll(
+                            tracks.stream()
+                                    .filter(s -> s.getSession().equals(SessionState.BASS))
+                                    .collect(Collectors.toList())
+                    );
+                }
+                if(searchForm.searchOption.contains("DRUM")) {
+                    soundtrackList.addAll(
+                            tracks.stream()
+                                    .filter(s -> s.getSession().equals(SessionState.DRUM))
+                                    .collect(Collectors.toList())
+                    );
+                }
+                if(searchForm.searchOption.contains("KEYBOARD")) {
+                    soundtrackList.addAll(
+                            tracks.stream()
+                                    .filter(s -> s.getSession().equals(SessionState.KEYBOARD))
+                                    .collect(Collectors.toList())
+                    );
+                }
+                if(searchForm.searchOption.contains("ETC")) {
+                    soundtrackList.addAll(
+                            tracks.stream()
+                                    .filter(s -> s.getSession().equals(SessionState.ETC))
+                                    .collect(Collectors.toList())
+                    );
+                }
+            }
+                /*switch (searchForm.searchOption) {
                     //  이후에 다중 선택으로 한다면... if문으로 바꿔서 걸리는 거마다 추가하는 거로...
                     case "VOCAL":
                         tracks = tracks.stream()
@@ -88,7 +149,7 @@ public class SearchController {
                 }
             } else {
                 throw new IllegalStateException("Tlqkf");
-            }
+            }*/
         }
         model.addAttribute("soundtracks", soundtrackList);
 

@@ -21,7 +21,7 @@
         <div>
           <label id="note" for="note">Note</label>
           <!-- 아래 textarea에 db에서 note 불러와서 띄워주면 됨-->
-          <textarea name="note" readonly="true" spellcheck="true" th:field="*{note}"></textarea>
+          <textarea name="note" readonly="true" spellcheck="true" th:text="${note}"></textarea>
         </div>
       </form>
     </body>

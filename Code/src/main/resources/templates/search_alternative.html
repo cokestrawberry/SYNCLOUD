@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/css/share.css">
@@ -16,7 +16,7 @@
             }
         </script>
         <script>
-            function note(id){ /*수정필요 값 전달할 수 있게*/
+            function note(id){
                 let url = "http://127.0.0.1:8080/note/" + id;
                 let name = "note";
                 let option = "width = 400, height = 450, top = 100, left = 200, location = no"
@@ -42,15 +42,19 @@
         </header>
         <main>
             <section id="searching_area">
-                <form>
-                <!-- 검색창 만들기 -->
+                <form th:action="@{'/search/'+${userId}}" th:object="${searchForm}" method="post">
+                    <!-- 검색창 만들기 -->
                     <div class="search">
-                        <input type="text" name="query" value="">
-                        <button type="submit" class="search">Search</button>
+                        <input type="text" name="query" value="" th:field="*{searchTarget}">
+                        <button type="summit">Search</button>
                     </div>
                     <div class="session_select">
                       <label id="head_label">Options : </label>
-                      <div>
+                        <div th:each="_session : ${sessions}">
+                          <input type="checkbox" th:field="*{searchOption}" th:value="${_session.key}"/>
+                            <label th:for="${#ids.next('sessions')}" th:text="${_session.value}">Session</label>
+                        </div>
+                      <!--<div>
                         <label for="vocal">Vocal</label>
                         <input type="checkbox" class="session_srch_opt" id="vocal" value="VOCAL" checked />
                       </div>
@@ -73,7 +77,7 @@
                       <div>
                         <label for="etc">Etc.</label>
                         <input type="checkbox" class="session_srch_opt" id="etc" value="ETC" checked />
-                      </div>
+                      </div>-->
                     </div>
                 </form>
             </section>
