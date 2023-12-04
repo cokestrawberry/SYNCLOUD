@@ -35,6 +35,19 @@ public class UploadController {
     public String uploadSoundtrack(@PathVariable("userId") Long userId, SoundtrackForm form, HttpServletResponse response) throws Exception {
 
         User user = userService.findOne(userId);
+
+        if(form.getTitle().isEmpty()) {
+            ScriptUnit.alert(response, "제목을 작성해주세요.");
+            return "redirect:/upload/" + userId;
+        }
+        if(form.getArtist().isEmpty()) {
+            ScriptUnit.alert(response, "가수 이름을 작성해주세요.");
+            return "redirect:/upload/" + userId;
+        }
+        if(form.getBpm() == null) {
+            form.setBpm(0);
+        }
+
         Song song = songService.findByTitleAndArtist(form.getTitle(), form.getArtist());
 
         if(song == null) {

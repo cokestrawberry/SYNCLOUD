@@ -14,7 +14,7 @@ spring:
 
   thymeleaf:
     prefix: classpath:/templates/
-    #suffix: .html
+    suffix: .html
 
 logging:
   level:
