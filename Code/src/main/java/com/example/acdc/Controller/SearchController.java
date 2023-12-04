@@ -105,51 +105,6 @@ public class SearchController {
                     );
                 }
             }
-                /*switch (searchForm.searchOption) {
-                    //  이후에 다중 선택으로 한다면... if문으로 바꿔서 걸리는 거마다 추가하는 거로...
-                    case "VOCAL":
-                        tracks = tracks.stream()
-                                .filter(s -> s.getSession().equals(SessionState.VOCAL))
-                                .collect(Collectors.toList());
-                        soundtrackList.addAll(tracks);
-                        break;
-                    case "GUITAR":
-                        tracks = tracks.stream()
-                                .filter(s -> s.getSession().equals(SessionState.GUITAR))
-                                .collect(Collectors.toList());
-                        soundtrackList.addAll(tracks);
-                        break;
-                    case "BASS":
-                        tracks = tracks.stream()
-                                .filter(s -> s.getSession().equals(SessionState.BASS))
-                                .collect(Collectors.toList());
-                        soundtrackList.addAll(tracks);
-                        break;
-                    case "KEYBOARD":
-                        tracks = tracks.stream()
-                                .filter(s -> s.getSession().equals(SessionState.KEYBOARD))
-                                .collect(Collectors.toList());
-                        soundtrackList.addAll(tracks);
-                        break;
-                    case "DRUM":
-                        tracks = tracks.stream()
-                                .filter(s -> s.getSession().equals(SessionState.DRUM))
-                                .collect(Collectors.toList());
-                        soundtrackList.addAll(tracks);
-                        break;
-                    case "ETC":
-                        tracks = tracks.stream()
-                                .filter(s -> s.getSession().equals(SessionState.ETC))
-                                .collect(Collectors.toList());
-                        soundtrackList.addAll(tracks);
-                        break;
-                    case "ALL":
-                        soundtrackList.addAll(tracks);
-                        //지금은 오류인데, 나중에는 그냥 다 추가하는 거로 수ㄷ
-                }
-            } else {
-                throw new IllegalStateException("Tlqkf");
-            }*/
         }
         model.addAttribute("soundtracks", soundtrackList);
 
@@ -171,7 +126,6 @@ public class SearchController {
             ScriptUnit.alert(response, "이미 목록에 추가된 사운드트랙입니다.");
             return "redirect:/search/"+userId;
         }
-            //추후에 이미 추가된 곡임을 알리는 팝업창이 있으면 좋을듯
 
         if(isExist == 1) {
             selectSoundtrackService.save(selectSoundtrack);
@@ -182,23 +136,4 @@ public class SearchController {
 
         return "redirect:/search_alternative/"+userId;
     }
-
-
-//    @PostMapping(value = "/search/{userId}/title?{title}")
-//    public String searchByTitle(@PathVariable("userId") Long userId, @PathVariable("title") String title) {
-//
-//        return "search";
-//    }
-//
-//    @PostMapping(value = "/search/{userId}/artist?{artist}")
-//    public String searchByArtist(@PathVariable("userId") Long userId, @PathVariable("artist") String artist) {
-//
-//        return "search";
-//    }
-//
-//    @PostMapping(value = "/search/{userId}/userName?{userName}")
-//    public String searchByUser(@PathVariable("userId") Long userId, @PathVariable("userName") String userName) {
-//
-//        return "search";
-//    }
 }

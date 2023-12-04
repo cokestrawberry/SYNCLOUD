@@ -17,4 +17,11 @@ public class ScriptUnit {
         out.println("<script>alert('" + alertText +"'); history.go(-1); </script>");
         out.flush();
     }
+
+    public static void alert_clear(HttpServletResponse response, String pagePath, String alertText) throws IOException {
+        init(response);
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('" + alertText +"'); location.href='" + pagePath +"' ;</script>");
+        out.flush();
+    }
 }
