@@ -1,25 +1,26 @@
 # SoundCloud
 Repository for SoundCloud
-
-* Frontend
+<hr/>
+## Frontend
 
 Frontend is divided into 3 parts, codes / styles / scripts
 
-** codes **
+### codes
   - html codes
   - index : landing page & workspace
   - search : search soundtrack
   - upload : pop-up page for uploading own soundtrack
   - note : see additional informations for each soundtrack
 
-** styles **
+### styles
   - css codes for html codes
   - it includes share(global) / index / search / upload / note
 
-** scripts **
+### scripts
   - for pop-up window action.
 
-* Backend
+<hr/>
+## Backend
 
 [ 작성 환경 MacOS ventura 13.5.1 , Spring 3.1.3 ver, IntelliJ IDEA ]
 
