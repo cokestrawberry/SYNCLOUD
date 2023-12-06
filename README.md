@@ -1,5 +1,5 @@
-# SoundCloud
-Repository for SoundCloud
+# Syncloud
+Repository for Syncloud
 
 <hr/>
 
