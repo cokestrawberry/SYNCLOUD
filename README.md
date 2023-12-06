@@ -1,5 +1,23 @@
-# Capstone_Design
-Repository for Capstone Design
+# SoundCloud
+Repository for SoundCloud
+
+* Frontend
+
+Frontend is divided into 3 parts, codes / styles / scripts
+
+** codes **
+  - html codes
+  - index : landing page & workspace
+  - search : search soundtrack
+  - upload : pop-up page for uploading own soundtrack
+  - note : see additional informations for each soundtrack
+
+** styles **
+  - css codes for html codes
+  - it includes share(global) / index / search / upload / note
+
+** scripts **
+  - for pop-up window action.
 
 * Backend
 
