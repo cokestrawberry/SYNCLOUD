@@ -1,6 +1,8 @@
 # SoundCloud
 Repository for SoundCloud
+
 <hr/>
+
 ## Frontend
 
 Frontend is divided into 3 parts, codes / styles / scripts
@@ -20,6 +22,7 @@ Frontend is divided into 3 parts, codes / styles / scripts
   - for pop-up window action.
 
 <hr/>
+
 ## Backend
 
 [ 작성 환경 MacOS ventura 13.5.1 , Spring 3.1.3 ver, IntelliJ IDEA ]
