@@ -1,0 +1,33 @@
+h1 {
+  color: white;
+  font-size: 65px;
+  padding: 1px;
+  /*font-family: 'Noto Sans Nandinagari', sans-serif;*/
+}
+
+#play {
+  top: 150px;
+}
+
+#play button{
+  background-color: white;
+  text-align: center;
+}
+
+#play button:active {
+  background-color: rgb(230, 230, 230);
+}
+
+#play button:disabled {
+  background-color: #ababab;
+}
+
+#card {
+  top:200px;
+}
+
+#button_place {
+  right: 10px;
+  width: fit-content;
+  margin: 0 70px 0 130px;
+}
