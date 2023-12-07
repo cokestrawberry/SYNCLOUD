@@ -55,7 +55,7 @@ public class UploadController {
             return "redirect:/upload/" + userId;
         }
 
-        Soundtrack soundtrack = Soundtrack.createSoundtrack(user, song, form.getSession(), form.getBpm(), form.getNote(), "https://test.com");
+        Soundtrack soundtrack = Soundtrack.createSoundtrack(user, song, form.getSession(), form.getBpm(), form.getNote(), "sample_music/"+form.getPath());
         soundtrackService.save(soundtrack);
 
         ScriptUnit.alert_clear(response, "/upload/" + userId ,"업로드가 완료되었습니다.");

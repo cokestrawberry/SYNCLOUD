@@ -2,8 +2,13 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/ACDC?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: dwr_hw_516
-    password: 19930516
+    username: root
+    password: 19990806
+  security:
+    user:
+      name: user
+      password: 1234
+      roles: AUDIO_ACCESS
 
   jpa:
     hibernate:

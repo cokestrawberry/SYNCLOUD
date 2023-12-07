@@ -48,6 +48,12 @@
                         </div>
                     </li>
                     <li>
+                        <div class="meta_list" id="path_input">
+                            <label for="path">Uploading File</label>
+                            <input type="file" name="path" th:field="*{path}" accept=".mp3, .wav">
+                        </div>
+                    </li>
+                    <li>
                         <div class="meta_list" id="note_input">
                             <label for="note">Note</label>
                             <textarea name="note" spellcheck="true" placeholder=" Session(Etc.) & Additional Information" th:field="*{note}"></textarea>
@@ -62,4 +68,27 @@
         <!-- 팀 정보 같은거 넣으면 될듯 -->
         Chungang UNIV. CSE Capstone Design - Team 2
     </footer>
+    <script>
+        window.onload = function() {
+            console.log("load done")
+            // after recording -> get the current information cookie
+            let cur_info_cookie = document.cookie.match(/cur_info_cookie=([^;]+)/)[1];
+
+            if(cur_info_cookie!=='.'){
+                cur_info_cookie = cur_info_cookie.split(',');
+
+                const input_title = document.getElementById('title');
+                const input_artist = document.getElementById('artist');
+                const input_instrument = document.getElementById('instrument');
+                const input_bpm = document.getElementById('bpm');
+                const input_path = document.getElementById('path');
+
+                // and set the info
+                input_title.value = cur_info_cookie[0];
+                input_artist.value = cur_info_cookie[1];
+                input_bpm.value = cur_info_cookie[3];
+                input_path.value = cur_info_cookie[4];
+            }
+        };
+    </script>
 </html>

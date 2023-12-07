@@ -18,6 +18,10 @@ h1 {
   background-color: rgb(230, 230, 230);
 }
 
+#play button:disabled {
+  background-color: #ababab;
+}
+
 #card {
   top:200px;
 }

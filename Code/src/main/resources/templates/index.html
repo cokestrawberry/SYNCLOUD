@@ -3,6 +3,7 @@
     <head>
         <!--<meta http-equiv=="Content-Type" content="text/html; charset=UTF-8" /> -->
         <meta charset="UTF-8">
+        
         <link rel="stylesheet" href="/css/share.css">
         <link rel="stylesheet" href="/css/style.css">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Oleo+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet"/>
@@ -10,7 +11,7 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <script>
             function popup(id){
-                let url = "http://127.0.0.1:8080/upload/" + id;
+                let url = "http://syncloud:8080/upload/" + id;
                 let name = "Upload";
                 let option = "width = 500, height = 700, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -18,12 +19,15 @@
         </script>
         <script>
             function note(id){
-                let url = "http://127.0.0.1:8080/note/" + id;
+                let url = "http://syncloud:8080/note/" + id;
                 let name = "note";
                 let option = "width = 400, height = 450, top = 100, left = 200, location = no"
                 window.open(url, name, option);
             }
         </script>
+        <script src="js/howler.core.js"></script>
+        <script src="js/howler.spatial.js"></script>
+        <script src="js/audioControler.js"></script>
     </head>
     <body>
         <header>
@@ -44,8 +48,9 @@
         <main>
             <h1>Workspace</h1>
             <section id="play">
-                <button class="play" style="color: green;">▶︎</button>
-                <button class="play" style="color: red;">■</button>
+                <button class="play" id="btn_p" style="color: green;">▶︎</button>
+                <button class="play" id="btn_s" style="color: black;" disabled>■</button>
+                <button class="play" id="btn_r" style="color: red;" value=0>⦁</button>
             </section>
             <section id="card">
                 <ul>
@@ -55,8 +60,11 @@
                             <p class="song_name" th:text="${selectSoundtrack.soundtrack.song.title}">SONG NAME</p>
                             <p class="singer_name" th:text="${selectSoundtrack.soundtrack.song.artist}">SINGER NAME</p>
                             <p class="instruments" th:text="${selectSoundtrack.soundtrack.session}">SESSION</p>
+                            <p class="path" style="display: none;" th:classappend="${selectSoundtrack.soundtrack.session}" th:text="${selectSoundtrack.soundtrack.path}"></p>
+                            <p class="bpm" style="display: none;" th:classappend="${selectSoundtrack.soundtrack.session}" th:text="${selectSoundtrack.soundtrack.bpm}"></p>
                             <div id="button_place">
-                                <input type="range" min="0" max="100">
+                                <button class="btn" id="load" style="width: 150px" disabled th:classappend="${selectSoundtrack.soundtrack.session}">LOADING...</button>
+                                <input class='volume' type="range" min="0" max="100" value="100" th:classappend="${selectSoundtrack.soundtrack.session}">
                                 <button type="button" class="note" th:onclick="'javascript:note('+${selectSoundtrack.soundtrack.id}+')'">Note</button>
                                 <a th:if="${selectSoundtrack.deleted == false}" href="#"
                                    th:href="'javascript:deleteSoundtrack('+${selectSoundtrack.id}+')'"
@@ -81,5 +89,86 @@
             document.body.appendChild(form);
             form.submit();
         }
+    </script>
+    <script async>
+        console.log("binding");
+
+        <!-- audio load -->
+        let paths = document.getElementsByClassName('path');
+        let list_audio = new Array();
+        //let list_audio_play_id = new Array();
+        let BPM = 100;
+
+        for(elem of paths){
+            let p = elem.innerText;
+            let btn_class_query = '.btn.' + elem.classList[1];
+            let bpm_class_query = '.bpm.' + elem.classList[1];
+
+            let btn = document.querySelectorAll(btn_class_query)[0];
+            BPM = document.querySelectorAll(bpm_class_query)[0].innerText;
+            list_audio.push(audio_obj_create(btn, p));
+        }
+        set_metronome(BPM);
+
+        <!-- function binding -->
+        const btn_play = document.getElementById('btn_p');
+        const btn_stop = document.getElementById('btn_s');
+        const btn_record = document.getElementById('btn_r');
+
+        btn_play.addEventListener("click", function(){
+            console.log("play");
+            audio_play(BPM, list_audio);
+
+            btn_play.setAttribute("disabled", "true");
+            btn_stop.removeAttribute("disabled");
+        });
+        btn_stop.addEventListener("click", function (){
+            console.log("stop");
+            audio_stop();
+
+            btn_stop.setAttribute("disabled", "true");
+            btn_play.removeAttribute("disabled");
+        });
+        btn_record.addEventListener("click", function(){
+            console.log(btn_record.value);
+            if(btn_record.value==0){
+                audio_record_start(BPM, list_audio);
+                btn_record.value=1;
+
+                btn_record.style.backgroundColor = 'gray';
+            }
+            else{
+                audio_record_stop();
+                btn_record.value=0;
+
+                btn_record.style.backgroundColor = 'white';
+            }
+        });
+
+        const volume_inputs = document.querySelectorAll(".volume");
+        volume_inputs.forEach((elem, index) => {
+            elem.addEventListener('input', function(){
+                audio_volume(elem.value, list_audio[index], list_audio_play_id[index]);
+                console.log(elem.value);
+            })
+        })
+        console.log("done");
+
+        function info_gathering(){
+            let ret = new Array;
+
+            // song_name | artist | session='vocal' | bpm | path=null
+            ret.push(document.getElementsByClassName('song_name')[0].innerText);
+            ret.push(document.getElementsByClassName('singer_name')[0].innerText);
+            ret.push('vocal');
+            ret.push(BPM);
+            ret.push('null');
+
+            return ret;
+        }
+    </script>
+    <script>
+        document.cookie = "my_srchopt=1/1/1/1/1/1"
+        document.cookie = "cur_info_cookie=."
     </script>
 </html>

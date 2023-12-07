@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <script>
             function popup(id){
-                let url = "http://127.0.0.1:8080/upload/" + id;
+                let url = "http://syncloud:8080/upload/" + id;
                 let name = "Upload";
                 let option = "width = 500, height = 700, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -17,7 +17,7 @@
         </script>
         <script>
             function note(id){
-                let url = "http://127.0.0.1:8080/note/" + id;
+                let url = "http://syncloud:8080/note/" + id;
                 let name = "note";
                 let option = "width = 400, height = 450, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -46,7 +46,7 @@
                     <!-- 검색창 만들기 -->
                     <div class="search">
                         <input type="text" name="query" value="" th:field="*{searchTarget}">
-                        <button type="summit">Search</button>
+                        <button id="btn_search" type="summit">Search</button>
                     </div>
                     <div class="session_select">
                       <label id="head_label">Options : </label>
@@ -89,5 +89,31 @@
             document.body.appendChild(form);
             form.submit();
         }
+    </script>
+    <script>
+        let cookie_srchopts = document.cookie.match(/my_srchopt=([^;]+)/)[1].split('/');
+
+        const srchopt1 = document.getElementById('searchOption1');
+        const srchopt2 = document.getElementById('searchOption2');
+        const srchopt3 = document.getElementById('searchOption3');
+        const srchopt4 = document.getElementById('searchOption4');
+        const srchopt5 = document.getElementById('searchOption5');
+        const srchopt6 = document.getElementById('searchOption6');
+        const srchopts = new Array(srchopt1, srchopt2, srchopt3, srchopt4, srchopt5, srchopt6);
+
+        srchopts.forEach((elem, index) => {
+            if(cookie_srchopts[index]=='1')  elem.checked = true;
+            else elem.checked = false;
+        });
+
+        document.getElementById('btn_search').addEventListener('click', function (){
+            let temp = new Array();
+            srchopts.forEach((elem, index) => {
+                if(elem.checked==true)  temp.push('1');
+                else temp.push('0');
+            });
+            cookie_srchopts = temp.join('/');
+            document.cookie = "my_srchopt="+cookie_srchopts;
+        });
     </script>
 </html>
