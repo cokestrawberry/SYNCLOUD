@@ -1,7 +1,29 @@
-# Capstone_Design
-Repository for Capstone Design
+# Syncloud
+Repository for Syncloud
 
-* Backend
+<hr/>
+
+## Frontend
+
+Frontend is divided into 3 parts, codes / styles / scripts
+
+### codes
+  - html codes
+  - index : landing page & workspace
+  - search : search soundtrack
+  - upload : pop-up page for uploading own soundtrack
+  - note : see additional informations for each soundtrack
+
+### styles
+  - css codes for html codes
+  - it includes share(global) / index / search / upload / note
+
+### scripts
+  - for pop-up window action.
+
+<hr/>
+
+## Backend
 
 [ 작성 환경 MacOS ventura 13.5.1 , Spring 3.1.3 ver, IntelliJ IDEA ]
 
