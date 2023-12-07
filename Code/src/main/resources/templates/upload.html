@@ -49,8 +49,8 @@
                     </li>
                     <li>
                         <div class="meta_list" id="path_input">
-                            <label for="path">Uploading File</label>
-                            <input type="file" name="path" th:field="*{path}" accept=".mp3, .wav">
+                            <label for="path">Upload File</label>
+                            <input type="file" name="path" th:field="*{path}" accept=".mp3,.wav,.webm">
                         </div>
                     </li>
                     <li>
@@ -87,7 +87,6 @@
                 input_title.value = cur_info_cookie[0];
                 input_artist.value = cur_info_cookie[1];
                 input_bpm.value = cur_info_cookie[3];
-                input_path.value = cur_info_cookie[4];
             }
         };
     </script>
