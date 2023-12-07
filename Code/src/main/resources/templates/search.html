@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <script>
             function popup(id){
-                let url = "http://syncloud:8080/upload/" + id;
+                let url = "https://syncloud:8080/upload/" + id;
                 let name = "Upload";
                 let option = "width = 500, height = 700, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -17,7 +17,7 @@
         </script>
         <script>
             function note(id){ /*수정필요 값 전달할 수 있게*/
-                let url = "http://syncloud:8080/note/" + id;
+                let url = "https://syncloud:8080/note/" + id;
                 let name = "note";
                 let option = "width = 400, height = 450, top = 100, left = 200, location = no"
                 window.open(url, name, option);

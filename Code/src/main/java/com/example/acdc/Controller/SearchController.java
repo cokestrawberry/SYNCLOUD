@@ -55,7 +55,9 @@ public class SearchController {
     @PostMapping(value = "/search/{userId}")
     public String searching(@PathVariable("userId") Long userId, SearchForm searchForm, Model model) {
 
-        List<Song> songList = songService.findByTitle(searchForm.getSearchTarget());
+        List<Song> songList = new ArrayList<>();
+        songList.addAll(songService.findByTitle(searchForm.getSearchTarget()));
+        songList.addAll(songService.findByArtist(searchForm.getSearchTarget()));
 
         List<Soundtrack> soundtrackList = new ArrayList<>();
 
@@ -134,6 +136,7 @@ public class SearchController {
         downloadService.save(download);
         userService.save(user);
 
-        return "redirect:/search_alternative/"+userId;
+        //return "redirect:/search_alternative/"+userId;
+        return "redirect:/search/"+userId;
     }
 }

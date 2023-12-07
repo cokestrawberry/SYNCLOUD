@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <script>
             function popup(id){
-                let url = "http://syncloud:8080/upload/" + id;
+                let url = "https://syncloud:8080/upload/" + id;
                 let name = "Upload";
                 let option = "width = 500, height = 700, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -17,7 +17,7 @@
         </script>
         <script>
             function note(id){
-                let url = "http://syncloud:8080/note/" + id;
+                let url = "https://syncloud:8080/note/" + id;
                 let name = "note";
                 let option = "width = 400, height = 450, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -32,7 +32,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="/index">Workspace</a>
+                        <a id='btn_work' href="/index">Workspace</a>
                     </li>
                     <li>
                         <a th:href = "'javascript:popup(' + ${userId} + ')'" >Upload</a>
@@ -45,7 +45,7 @@
                 <form th:action="@{'/search/'+${userId}}" th:object="${searchForm}" method="post">
                     <!-- 검색창 만들기 -->
                     <div class="search">
-                        <input type="text" name="query" value="" th:field="*{searchTarget}">
+                        <input id="input_search" type="text" name="query" value="" th:field="*{searchTarget}">
                         <button id="btn_search" type="summit">Search</button>
                     </div>
                     <div class="session_select">
@@ -114,6 +114,32 @@
             });
             cookie_srchopts = temp.join('/');
             document.cookie = "my_srchopt="+cookie_srchopts;
+
+            document.cookie = "my_search="+document.getElementById("input_search").value;
+            load_flag = '1';
+            document.cookie = "my_loadflag="+load_flag;
         });
+
+        document.getElementById('btn_work').addEventListener('click', function(){
+            load_flag = '1';
+            document.cookie = "my_loadflag="+load_flag;
+        });
+
+        document.querySelectorAll('.addToList').forEach((elem) => {
+            elem.addEventListener('click', function(){
+                load_flag = '1';
+                document.cookie = "my_loadflag="+load_flag;
+            });
+        });
+
+        let load_flag = document.cookie.match(/my_loadflag=([^;]+)/)[1];
+        let search_key = document.cookie.match(/my_search=([^;]+)/)[1];
+        if(search_key!=='.' && load_flag=='1'){
+            document.getElementById("input_search").value = search_key;
+            document.getElementById('btn_search').click();
+
+            load_flag = '0';
+            document.cookie = "my_loadflag="+load_flag;
+        }
     </script>
 </html>

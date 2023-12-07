@@ -15,6 +15,8 @@ function audio_obj_create(btn, path){
         src:[path]
     });
 
+    audio_obj.volume(0.5);
+
     audio_load(btn, audio_obj);
     return audio_obj;
 }
@@ -37,6 +39,9 @@ let list_audio_play_id = new Array();
 function audio_play(bpm, list_audio){
     let temp = metronome.play();
 
+    let timeout = 0;
+    if (bpm>100)    timeout = (60/bpm)*2.5*1000;
+    if (bpm<=100)   timeout = (60/bpm)*4*1000;
     list_audio.forEach((elem, index) => {
         list_audio_play_id.push(elem.play());
         elem.pause(list_audio_play_id[index]);
@@ -45,7 +50,7 @@ function audio_play(bpm, list_audio){
         list_audio.forEach((elem, index) => {
             elem.play();
         });
-    }, (60/bpm)*2.5*1000);
+    }, timeout);
 }
 
 function audio_stop(){
@@ -55,43 +60,39 @@ function audio_stop(){
     }
 }
 
-let recorder = null;
+let recorder;
 function audio_record_start(BPM, list_audio){
-    // recording start
     console.log('recording start');
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
-        .then((stream) => {
-            // 마이크 스트림을 사용하는 코드 작성
+    navigator.mediaDevices.getUserMedia({audio: true}).then((stream)=>{
+        recorder = new MediaRecorder(stream, {mimeType:'audio/webm'});
+        recorder.ondataavailable = async (event) => {
+            const data = event.data;
+            const blob = new Blob([data], {type: 'audio/webm'});
 
-            // list_audio play
-            audio_play(BPM, list_audio);
-            // recording start
-            recorder = new MediaRecorder(stream);
+            let file_name = 'src_'+record_index+'.webm';
+            saveAs(blob, file_name);
+            record_index += 1;
+        };
+
+        audio_play(BPM, list_audio);
+
+        let timeout = 0;
+        if (BPM>100)    timeout = (60/BPM)*2.5*1000;
+        if (BPM<=100)   timeout = (60/BPM)*4*1000;
+        setTimeout(function(){
             recorder.start();
-        })
-        .catch((error) => {
-            // 접근 권한이 거부되었거나 오류가 발생한 경우 처리하는 코드 작성
-            alert("마이크 권한이 없어 녹음을 할 수 없습니다.")
-        });
+        }, timeout);
+    });
 }
-function audio_record_stop(){
-    // recording stop
-    // add current workspace track
-    console.log('recording stop');
 
+function audio_record_stop(){
     // list_audio stop
     audio_stop();
     // recording stop
-    recorder.onstop = () => {
-        // 녹음된 데이터를 파일에 저장합니다.
-        const blob = recorder.getBlob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = "file:///" + "/Users/mepistos/github/git_Capstone_Design_1/SoundCloud/Code/src/main/resources/static/sample_music/recording.wav";
-        a.download = "recording.wav";
-        a.click();
-    };
+    recorder.stop();
+
+    console.log('recording stop');
 
     // cur_info_cookie setting
     let info = info_gathering();
