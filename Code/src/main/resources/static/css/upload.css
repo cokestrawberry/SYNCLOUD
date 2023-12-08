@@ -7,13 +7,13 @@ h1 {
   color: white;
   font-size: 50px;
   margin: 0;
-  padding: 50px;
+  padding: 40px;
   margin: 1px;
   /*font-family: 'Noto Sans Nandinagari', sans-serif;*/
 }
 
 #song_meta_data {
-  top: 150px;
+  top: 120px;
   margin: 10px;
 }
 
@@ -43,21 +43,23 @@ li select {
   font-size: 25px;
 }
 
-#bpm_input input {
-  width: 70px;
+.bpm_input input {
+  width: 50px;
   text-align: right;
 }
-
-#note_input{
+.path_input input{
+  width: fit-content;
+}
+.note_input{
   display: flex;
   flex-direction: column;
 }
 
-#note_input label {
+.note_input label {
   padding-bottom: 10px;
 }
 
-#note_input textarea {
+.note_input textarea {
   font-size: 25px;
   height: 200px;
   width: 100%;

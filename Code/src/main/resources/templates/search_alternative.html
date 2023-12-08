@@ -11,7 +11,7 @@
             function popup(id){
                 let url = "https://syncloud:8080/upload/" + id;
                 let name = "Upload";
-                let option = "width = 500, height = 700, top = 100, left = 200, location = no"
+                let option = "width = 550, height = 720, top = 100, left = 200, location = no"
                 window.open(url, name, option);
             }
         </script>
@@ -60,11 +60,11 @@
             <section id="card">
                 <ul>
                     <li th:each="soundtrack : ${soundtracks}">
-                        <form id="card_contents">
+                        <form class="card_contents" id="card_contents" style="padding: 10px 0 10px 0; margin: 3px auto 3px auto; display: grid;">
                             <p class="song_name" th:text="${soundtrack.song.title}">SONG NAME</p>
                             <p class="singer_name" th:text="${soundtrack.song.artist}">SINGER NAME</p>
                             <p class="instruments" th:text="${soundtrack.session}">SESSION</p>
-                            <div>
+                            <div style="width: fit-content; padding-left:800px;">
                                 <button type="button" class="note" th:onclick="'javascript:note('+${soundtrack.id}+')'">Note</button>
                                 <a href="#"
                                    th:href="'javascript:addSoundtrack('+${userId}+','+${soundtrack.id}+')'">

@@ -49,7 +49,7 @@ public class SongService {
 
     private void validateDuplicateSong(Song song) {
         List<Song> findSong = songRepository.findByTitleAndArtist(song.getTitle(), song.getArtist());
-        if (findSong.isEmpty()) {
+        if (!(findSong.isEmpty())) {
             throw new IllegalStateException("이미 존재하는 곡입니다.");
         }
     }
