@@ -51,12 +51,20 @@ public class UploadController {
         Song song = songService.findByTitleAndArtist(form.getTitle(), form.getArtist());
 
         if(song == null) {
-            ScriptUnit.alert(response, "등록되지 않은 곡입니다.");
-            return "redirect:/upload/" + userId;
-        }
+            /*ScriptUnit.alert(response, "등록되지 않은 곡입니다.");
+            return "redirect:/upload/" + userId;*/
+            Song newSong = Song.createSong(form.getTitle(), form.getArtist(), form.getBpm());
+            songService.save(newSong);
 
-        Soundtrack soundtrack = Soundtrack.createSoundtrack(user, song, form.getSession(), form.getBpm(), form.getNote(), "sample_music/"+form.getPath());
-        soundtrackService.save(soundtrack);
+            String path = "sample_music/" + form.getPath();
+            Soundtrack soundtrack = Soundtrack.createSoundtrack(user, newSong, form.getSession(), form.getBpm(), form.getNote(), path);
+            soundtrackService.save(soundtrack);
+
+        } else {
+            String path = "sample_music/" + form.getPath();
+            Soundtrack soundtrack = Soundtrack.createSoundtrack(user, song, form.getSession(), form.getBpm(), form.getNote(), path);
+            soundtrackService.save(soundtrack);
+        }
 
         ScriptUnit.alert_clear(response, "/upload/" + userId ,"업로드가 완료되었습니다.");
 
