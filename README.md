@@ -1,5 +1,7 @@
-# Syncloud
-Repository for Syncloud
+# SYNCLOUD
+Repository for SYNCLOUD
+
+You can get v1.0 now (23/12/15)
 
 <hr/>
 
