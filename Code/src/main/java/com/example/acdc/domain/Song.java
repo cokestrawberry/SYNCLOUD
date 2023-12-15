@@ -24,13 +24,13 @@ public class Song {
     @Column
     private int bpm;
 
-//    public static Song createSong(String title, String artist, int bpm) {
-//        Song song = new Song();
-//
-//        song.setTitle(title);
-//        song.setArtist(artist);
-//        song.setBpm(bpm);
-//
-//        return song;
-//    }
+    public static Song createSong(String title, String artist, int bpm) {
+        Song song = new Song();
+
+        song.setTitle(title);
+        song.setArtist(artist);
+        song.setBpm(bpm);
+
+        return song;
+    }
 }

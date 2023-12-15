@@ -2,8 +2,15 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/ACDC?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: dwr_hw_516
-    password: 19930516
+    username: root
+    password: 19990806
+
+server:
+  ssl:
+    key-store: keystore.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: SYNC
 
   jpa:
     hibernate:

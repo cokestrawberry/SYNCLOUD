@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class HomeController {
     private final DownloadService downloadService;
     private final SelectSoundtrackService selectSoundtrackService;
 
+    //@PreAuthorize("hasAuthority('ROLE_AUDIO_ACCESS')")
     @GetMapping(value = "/index")
     public String home(Model model) {
 
@@ -51,4 +53,3 @@ public class HomeController {
         return "redirect:/index";
     }
 }
-

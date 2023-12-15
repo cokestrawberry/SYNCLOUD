@@ -18,5 +18,8 @@ public class SoundtrackForm {
     @NotEmpty(message = "세션은 필수입니다.")
     private SessionState session;
 
+    @NotEmpty(message = "업로드 할 파일은 필수입니다.")
+    private String path;
+
     private String note;
 }

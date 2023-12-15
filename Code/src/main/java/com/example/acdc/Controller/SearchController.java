@@ -55,57 +55,72 @@ public class SearchController {
     @PostMapping(value = "/search/{userId}")
     public String searching(@PathVariable("userId") Long userId, SearchForm searchForm, Model model) {
 
-        List<Song> songList = songService.findByTitle(searchForm.getSearchTarget());
+        List<Soundtrack> tracks = new ArrayList<>();
 
-        List<Soundtrack> soundtrackList = new ArrayList<>();
+        //findBySong
+        List<Song> songList = new ArrayList<>();
+        songList.addAll(songService.findByTitle(searchForm.getSearchTarget()));
+        songList.addAll(songService.findByArtist(searchForm.getSearchTarget()));
 
         for(int i = 0; i < songList.size(); i++){
-            List<Soundtrack> tracks = soundtrackService.findBySong(songList.get(i));
-            if(searchForm.searchOption != null) {
-                if(searchForm.searchOption.contains("VOCAL")) {
-                    soundtrackList.addAll(
-                            tracks.stream()
-                                    .filter(s -> s.getSession().equals(SessionState.VOCAL))
-                                    .collect(Collectors.toList())
-                    );
-                }
-                if(searchForm.searchOption.contains("GUITAR")) {
-                    soundtrackList.addAll(
-                            tracks.stream()
-                                    .filter(s -> s.getSession().equals(SessionState.GUITAR))
-                                    .collect(Collectors.toList())
-                    );
-                }
-                if(searchForm.searchOption.contains("BASS")) {
-                    soundtrackList.addAll(
-                            tracks.stream()
-                                    .filter(s -> s.getSession().equals(SessionState.BASS))
-                                    .collect(Collectors.toList())
-                    );
-                }
-                if(searchForm.searchOption.contains("DRUM")) {
-                    soundtrackList.addAll(
-                            tracks.stream()
-                                    .filter(s -> s.getSession().equals(SessionState.DRUM))
-                                    .collect(Collectors.toList())
-                    );
-                }
-                if(searchForm.searchOption.contains("KEYBOARD")) {
-                    soundtrackList.addAll(
-                            tracks.stream()
-                                    .filter(s -> s.getSession().equals(SessionState.KEYBOARD))
-                                    .collect(Collectors.toList())
-                    );
-                }
-                if(searchForm.searchOption.contains("ETC")) {
-                    soundtrackList.addAll(
-                            tracks.stream()
-                                    .filter(s -> s.getSession().equals(SessionState.ETC))
-                                    .collect(Collectors.toList())
-                    );
-                }
+            tracks.addAll(soundtrackService.findBySong(songList.get(i)));
+        }
+
+        //findByUser
+        List<User> userList = userService.findByName(searchForm.getSearchTarget());
+
+        for(int i = 0; i < userList.size(); i++){
+            tracks.addAll(soundtrackService.findByUser(userList.get(i)));
+        }
+
+        //filter
+        List<Soundtrack> soundtrackList = new ArrayList<>();
+
+        if(searchForm.searchOption != null) {
+            if(searchForm.searchOption.contains("VOCAL")) {
+                soundtrackList.addAll(
+                        tracks.stream()
+                                .filter(s -> s.getSession().equals(SessionState.VOCAL))
+                                .collect(Collectors.toList())
+                );
+            }
+            if(searchForm.searchOption.contains("GUITAR")) {
+                soundtrackList.addAll(
+                        tracks.stream()
+                                .filter(s -> s.getSession().equals(SessionState.GUITAR))
+                                .collect(Collectors.toList())
+                );
+            }
+            if(searchForm.searchOption.contains("BASS")) {
+                soundtrackList.addAll(
+                        tracks.stream()
+                                .filter(s -> s.getSession().equals(SessionState.BASS))
+                                .collect(Collectors.toList())
+                );
+            }
+            if(searchForm.searchOption.contains("DRUM")) {
+                soundtrackList.addAll(
+                        tracks.stream()
+                                .filter(s -> s.getSession().equals(SessionState.DRUM))
+                                .collect(Collectors.toList())
+                );
+            }
+            if(searchForm.searchOption.contains("KEYBOARD")) {
+                soundtrackList.addAll(
+                        tracks.stream()
+                                .filter(s -> s.getSession().equals(SessionState.KEYBOARD))
+                                .collect(Collectors.toList())
+                );
+            }
+            if(searchForm.searchOption.contains("ETC")) {
+                tracks.addAll(
+                        soundtrackList.stream()
+                                .filter(s -> s.getSession().equals(SessionState.ETC))
+                                .collect(Collectors.toList())
+                );
             }
         }
+
         model.addAttribute("soundtracks", soundtrackList);
 
         return "search_alternative";
@@ -134,6 +149,7 @@ public class SearchController {
         downloadService.save(download);
         userService.save(user);
 
-        return "redirect:/search_alternative/"+userId;
+        //return "redirect:/search_alternative/"+userId;
+        return "redirect:/search/"+userId;
     }
 }

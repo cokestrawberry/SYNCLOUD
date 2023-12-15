@@ -9,15 +9,15 @@
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <script>
             function popup(id){
-                let url = "http://127.0.0.1:8080/upload/" + id;
+                let url = "https://syncloud:8080/upload/" + id;
                 let name = "Upload";
-                let option = "width = 500, height = 700, top = 100, left = 200, location = no"
+                let option = "width = 550, height = 720, top = 100, left = 200, location = no"
                 window.open(url, name, option);
             }
         </script>
         <script>
             function note(id){
-                let url = "http://127.0.0.1:8080/note/" + id;
+                let url = "https://syncloud:8080/note/" + id;
                 let name = "note";
                 let option = "width = 400, height = 450, top = 100, left = 200, location = no"
                 window.open(url, name, option);
@@ -32,7 +32,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="/index">Workspace</a>
+                        <a id='btn_work' href="/index">Workspace</a>
                     </li>
                     <li>
                         <a th:href = "'javascript:popup(' + ${userId} + ')'" >Upload</a>
@@ -45,8 +45,8 @@
                 <form th:action="@{'/search/'+${userId}}" th:object="${searchForm}" method="post">
                     <!-- 검색창 만들기 -->
                     <div class="search">
-                        <input type="text" name="query" value="" th:field="*{searchTarget}">
-                        <button type="summit">Search</button>
+                        <input id="input_search" type="text" name="query" value="" th:field="*{searchTarget}">
+                        <button id="btn_search" type="summit">Search</button>
                     </div>
                     <div class="session_select">
                       <label id="head_label">Options : </label>
@@ -60,11 +60,11 @@
             <section id="card">
                 <ul>
                     <li th:each="soundtrack : ${soundtracks}">
-                        <form id="card_contents">
+                        <form class="card_contents" id="card_contents" style="padding: 10px 0 10px 0; margin: 3px auto 3px auto; display: grid;">
                             <p class="song_name" th:text="${soundtrack.song.title}">SONG NAME</p>
                             <p class="singer_name" th:text="${soundtrack.song.artist}">SINGER NAME</p>
                             <p class="instruments" th:text="${soundtrack.session}">SESSION</p>
-                            <div>
+                            <div style="width: fit-content; padding-left:800px;">
                                 <button type="button" class="note" th:onclick="'javascript:note('+${soundtrack.id}+')'">Note</button>
                                 <a href="#"
                                    th:href="'javascript:addSoundtrack('+${userId}+','+${soundtrack.id}+')'">
@@ -88,6 +88,58 @@
             form.setAttribute("action", "/search/" + userId + "/" + soundtrackId + "/add");
             document.body.appendChild(form);
             form.submit();
+        }
+    </script>
+    <script>
+        let cookie_srchopts = document.cookie.match(/my_srchopt=([^;]+)/)[1].split('/');
+
+        const srchopt1 = document.getElementById('searchOption1');
+        const srchopt2 = document.getElementById('searchOption2');
+        const srchopt3 = document.getElementById('searchOption3');
+        const srchopt4 = document.getElementById('searchOption4');
+        const srchopt5 = document.getElementById('searchOption5');
+        const srchopt6 = document.getElementById('searchOption6');
+        const srchopts = new Array(srchopt1, srchopt2, srchopt3, srchopt4, srchopt5, srchopt6);
+
+        srchopts.forEach((elem, index) => {
+            if(cookie_srchopts[index]=='1')  elem.checked = true;
+            else elem.checked = false;
+        });
+
+        document.getElementById('btn_search').addEventListener('click', function (){
+            let temp = new Array();
+            srchopts.forEach((elem, index) => {
+                if(elem.checked==true)  temp.push('1');
+                else temp.push('0');
+            });
+            cookie_srchopts = temp.join('/');
+            document.cookie = "my_srchopt="+cookie_srchopts;
+
+            document.cookie = "my_search="+document.getElementById("input_search").value;
+            load_flag = '1';
+            document.cookie = "my_loadflag="+load_flag;
+        });
+
+        document.getElementById('btn_work').addEventListener('click', function(){
+            load_flag = '1';
+            document.cookie = "my_loadflag="+load_flag;
+        });
+
+        document.querySelectorAll('.addToList').forEach((elem) => {
+            elem.addEventListener('click', function(){
+                load_flag = '1';
+                document.cookie = "my_loadflag="+load_flag;
+            });
+        });
+
+        let load_flag = document.cookie.match(/my_loadflag=([^;]+)/)[1];
+        let search_key = document.cookie.match(/my_search=([^;]+)/)[1];
+        if(search_key!=='.' && load_flag=='1'){
+            document.getElementById("input_search").value = search_key;
+            document.getElementById('btn_search').click();
+
+            load_flag = '0';
+            document.cookie = "my_loadflag="+load_flag;
         }
     </script>
 </html>
